@@ -1,6 +1,8 @@
-﻿using Il2Cpp;
+﻿using Harmony;
+using Il2Cpp;
 using ModComponent.API.Components;
 using ModComponent.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModComponent.Mapper;
@@ -40,12 +42,12 @@ internal static class AlternativeToolManager
 		}
 
 		AlternateTools alternateTools = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
-		List<GameObject> list = new();
-		if (alternateTools.m_AlternateToolsList != null)
+		List<AssetReferenceGearItem> list = new();
+		if (alternateTools.m_AlternateTools.Count() > 0)
 		{
-			list.AddRange(alternateTools.m_AlternateToolsList);
+			list.AddRange(alternateTools.m_AlternateTools);
 		}
-		list.Add(modToolComponent.gameObject);
-		alternateTools.m_AlternateToolsList = list.ToArray();
+		list.Add(new AssetReferenceGearItem(templateName));
+		alternateTools.m_AlternateTools = list.ToArray();
 	}
 }

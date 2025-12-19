@@ -8,7 +8,7 @@ internal static class EquipItemPopupUtils
 	{
 		EquipItemPopup equipItemPopup = InterfaceManager.GetPanel<Panel_HUD>().m_EquipItemPopup;
 		ShowItemIcons(equipItemPopup, primaryAction, secondaryAction, showAmmo);
-		equipItemPopup.OnOverlappingDecalChange(true);
+//		equipItemPopup.OnOverlappingDecalChange(true);
 
 		if (Il2Cpp.Utils.IsGamepadActive())
 		{

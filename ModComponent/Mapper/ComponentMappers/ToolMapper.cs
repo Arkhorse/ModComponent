@@ -15,6 +15,7 @@ internal static class ToolMapper
 		}
 
 		ToolsItem toolsItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
+		GearItem gearItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<GearItem>(modToolComponent);
 
 		toolsItem.m_ToolType = modToolComponent.Usage;
 		toolsItem.m_CuttingToolType = modToolComponent.ToolType;
@@ -32,6 +33,9 @@ internal static class ToolMapper
 		ConfigureForceLock(modToolComponent);
 		ConfigureIceFishingHole(modToolComponent);
 		ConfigureStruggleBonus(modToolComponent);
+
+		gearItem.m_ToolsItem = toolsItem;
+
 	}
 
 	private static void ConfigureBodyHarvest(ModToolComponent modToolComponent)

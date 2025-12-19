@@ -40,7 +40,13 @@ internal class Implementation : MelonMod
 			if (runDeps)
 			{
 				// run the dependency checks (once)
-				DependencyChecker.RunChecks();
+				try
+				{
+					DependencyChecker.RunChecks();
+				} catch (Exception e)
+				{
+					Logger.LogWarning($"DependencyChecker Failed:\n{e}");
+				}
 				runDeps = false;
 			}
 		}
