@@ -150,40 +150,42 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	public ModToolComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModToolComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModToolComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.ToolType = dict.GetEnum<ToolsItem.CuttingToolType>(className, "ToolType");
-		this.DegradeOnUse = dict.GetVariant(className, "DegradeOnUse");
-		this.Usage = dict.GetEnum<ToolsItem.ToolType>(className, "Usage");
-		this.SkillBonus = dict.GetVariant(className, "SkillBonus");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
 
-		this.CraftingTimeMultiplier = dict.GetVariant(className, "CraftingTimeMultiplier");
-		this.DegradePerHourCrafting = dict.GetVariant(className, "DegradePerHourCrafting");
+		this.ToolType = entry.GetEnum<ToolsItem.CuttingToolType>("ToolType");
+		this.DegradeOnUse = entry.GetFloat("DegradeOnUse");
+		this.Usage = entry.GetEnum<ToolsItem.ToolType>("Usage");
+		this.SkillBonus = entry.GetInt("SkillBonus");
 
-		this.BreakDown = dict.GetVariant(className, "BreakDown");
-		this.BreakDownTimeMultiplier = dict.GetVariant(className, "BreakDownTimeMultiplier");
+		this.CraftingTimeMultiplier = entry.GetFloat("CraftingTimeMultiplier");
+		this.DegradePerHourCrafting = entry.GetFloat("DegradePerHourCrafting");
 
-		this.ForceLocks = dict.GetVariant(className, "ForceLocks");
-		this.ForceLockAudio = dict.GetVariant(className, "ForceLockAudio");
+		this.BreakDown = entry.GetBool("BreakDown");
+		this.BreakDownTimeMultiplier = entry.GetFloat("BreakDownTimeMultiplier");
 
-		this.IceFishingHole = dict.GetVariant(className, "IceFishingHole");
-		this.IceFishingHoleDegradeOnUse = dict.GetVariant(className, "IceFishingHoleDegradeOnUse");
-		this.IceFishingHoleMinutes = dict.GetVariant(className, "IceFishingHoleMinutes");
-		this.IceFishingHoleAudio = dict.GetVariant(className, "IceFishingHoleAudio");
+		this.ForceLocks = entry.GetBool("ForceLocks");
+		this.ForceLockAudio = entry.GetString("ForceLockAudio");
 
-		this.CarcassHarvesting = dict.GetVariant(className, "CarcassHarvesting");
-		this.MinutesPerKgMeat = dict.GetVariant(className, "MinutesPerKgMeat");
-		this.MinutesPerKgFrozenMeat = dict.GetVariant(className, "MinutesPerKgFrozenMeat");
-		this.MinutesPerHide = dict.GetVariant(className, "MinutesPerHide");
-		this.MinutesPerGut = dict.GetVariant(className, "MinutesPerGut");
-		this.DegradePerHourHarvesting = dict.GetVariant(className, "DegradePerHourHarvesting");
+		this.IceFishingHole = entry.GetBool("IceFishingHole");
+		this.IceFishingHoleDegradeOnUse = entry.GetFloat("IceFishingHoleDegradeOnUse");
+		this.IceFishingHoleMinutes = entry.GetInt("IceFishingHoleMinutes");
+		this.IceFishingHoleAudio = entry.GetString("IceFishingHoleAudio");
 
-		this.StruggleBonus = dict.GetVariant(className, "StruggleBonus");
-		this.DamageMultiplier = dict.GetVariant(className, "DamageMultiplier");
-		this.FleeChanceMultiplier = dict.GetVariant(className, "FleeChanceMultiplier");
-		this.TapMultiplier = dict.GetVariant(className, "TapMultiplier");
-		this.CanPuncture = dict.GetVariant(className, "CanPuncture");
-		this.BleedoutMultiplier = dict.GetVariant(className, "BleedoutMultiplier");
+		this.CarcassHarvesting = entry.GetBool("CarcassHarvesting");
+		this.MinutesPerKgMeat = entry.GetInt("MinutesPerKgMeat");
+		this.MinutesPerKgFrozenMeat = entry.GetInt("MinutesPerKgFrozenMeat");
+		this.MinutesPerHide = entry.GetInt("MinutesPerHide");
+		this.MinutesPerGut = entry.GetInt("MinutesPerGut");
+		this.DegradePerHourHarvesting = entry.GetFloat("DegradePerHourHarvesting");
+
+		this.StruggleBonus = entry.GetBool("StruggleBonus");
+		this.DamageMultiplier = entry.GetFloat("DamageMultiplier");
+		this.FleeChanceMultiplier = entry.GetFloat("FleeChanceMultiplier");
+		this.TapMultiplier = entry.GetFloat("TapMultiplier");
+		this.CanPuncture = entry.GetBool("CanPuncture");
+		this.BleedoutMultiplier = entry.GetFloat("BleedoutMultiplier");
 	}
 }

@@ -36,12 +36,14 @@ public partial class ModLiquidComponent : ModBaseComponent
 	public ModLiquidComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModLiquidComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModLiquidComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.LiquidType = dict.GetEnum<LiquidKind>(className, "LiquidType");
-		this.LiquidCapacityLiters = dict.GetVariant(className, "LiquidCapacityLiters");
-		this.RandomizeQuantity = dict.GetVariant(className, "RandomizedQuantity");
-		this.LiquidLiters = Mathf.Clamp(dict.GetVariant(className, "LiquidLiters"), 0f, this.LiquidCapacityLiters); //overridden if Randomized
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.LiquidType = entry.GetEnum<LiquidKind>("LiquidType");
+		this.LiquidCapacityLiters = entry.GetFloat("LiquidCapacityLiters");
+		this.RandomizeQuantity = entry.GetBool("RandomizedQuantity");
+		this.LiquidLiters = Mathf.Clamp(entry.GetFloat("LiquidLiters"), 0f, this.LiquidCapacityLiters); //overridden if Randomized
 	}
 }

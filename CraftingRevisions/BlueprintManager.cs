@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Il2CppTLD.Cooking;
 using Il2CppTLD.Gear;
+using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
 namespace CraftingRevisions
@@ -36,25 +37,28 @@ namespace CraftingRevisions
 			// loop over the items
 			foreach (string jsonUserBlueprint in jsonUserBlueprints)
 			{
-
-
-					ModUserBlueprintData blueprint = ModUserBlueprintData.ParseFromJson(jsonUserBlueprint);
 				try
 				{
-
-					bool isValid = blueprint.Validate();
-
-					if (isValid)
+					ModUserBlueprintData blueprint = ModUserBlueprintData.ParseFromJson(jsonUserBlueprint);
+					try
 					{
-						BlueprintData newBlueprint = blueprint.GetBlueprintData();
+						bool isValid = blueprint.Validate();
 
-						// store the processed recipe
-						__instance.m_AllBlueprints.Add(newBlueprint);
-						Logger.Log("Added Blueprint " + blueprint.Name);
+						if (isValid)
+						{
+							BlueprintData newBlueprint = blueprint.GetBlueprintData();
+
+							// store the processed recipe
+							__instance.m_AllBlueprints.Add(newBlueprint);
+						}
+					}
+					catch (Exception e)
+					{
+						Logger.LogError($"Blueprint Exception: {blueprint.Name}" + e);
 					}
 				} catch (Exception e)
 				{
-					Logger.LogError("Blueprint Exception" + blueprint.Name +"\n"+ e);
+					Logger.LogError($"Blueprint Parse Exception:" + e);
 				}
 			}
 		}

@@ -27,9 +27,13 @@ public class ChangeLayer : MonoBehaviour
 	public ChangeLayer(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeModification(ProxyObject dict, string className = "ChangeLayer")
+	internal void InitializeModification(JsonDict jsonDict, string inheritanceName = "ChangeLayer")
 	{
-		this.Recursively = dict.GetVariant(className, "Recursively");
-		this.Layer = dict.GetVariant(className, "Layer");
+		JsonDictEntry? jsonDictEntry = jsonDict.GetEntry(inheritanceName);
+		if (jsonDictEntry != null)
+		{
+			this.Recursively = jsonDictEntry.GetBool("Recursively");
+			this.Layer = jsonDictEntry.GetInt("Layer");
+		}
 	}
 }

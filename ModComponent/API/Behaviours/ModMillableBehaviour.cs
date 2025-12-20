@@ -51,15 +51,17 @@ public class ModMillableBehaviour : MonoBehaviour
 	public ModMillableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModMillableBehaviour")
 	{
-		this.RepairDurationMinutes = dict.GetVariant(className, "RepairDurationMinutes");
-		this.RepairRequiredGear = dict.GetStringArray(className, "RepairRequiredGear");
-		this.RepairRequiredGearUnits = dict.GetIntArray(className, "RepairRequiredGearUnits");
-		this.CanRestoreFromWornOut = dict.GetVariant(className, "CanRestoreFromWornOut");
-		this.RecoveryDurationMinutes = dict.GetVariant(className, "RecoveryDurationMinutes");
-		this.RestoreRequiredGear = dict.GetStringArray(className, "RestoreRequiredGear");
-		this.RestoreRequiredGearUnits = dict.GetIntArray(className, "RestoreRequiredGearUnits");
-		this.Skill = dict.GetEnum<SkillType>(className, "Skill");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.RepairDurationMinutes = entry.GetInt("RepairDurationMinutes");
+		this.RepairRequiredGear = entry.GetArray<string>("RepairRequiredGear");
+		this.RepairRequiredGearUnits = entry.GetArray<int>("RepairRequiredGearUnits");
+		this.CanRestoreFromWornOut = entry.GetBool("CanRestoreFromWornOut");
+		this.RecoveryDurationMinutes = entry.GetInt("RecoveryDurationMinutes");
+		this.RestoreRequiredGear = entry.GetArray<string>("RestoreRequiredGear");
+		this.RestoreRequiredGearUnits = entry.GetArray<int>("RestoreRequiredGearUnits");
+		this.Skill = entry.GetEnum<SkillType>("Skill");
 	}
 }

@@ -8,6 +8,6 @@ internal sealed class GearSpawnerMod : MelonMod
 
 	public override void OnInitializeMelon()
 	{
-		Settings.Instance.AddToModSettings("Gear Spawn Settings");
+		//Settings.instance.AddToModSettings("Gear Spawn Settings");
 	}
 }

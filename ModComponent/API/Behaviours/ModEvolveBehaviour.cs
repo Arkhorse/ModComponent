@@ -25,10 +25,12 @@ public class ModEvolveBehaviour : MonoBehaviour
 	public ModEvolveBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModEvolveBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModEvolveBehaviour")
 	{
-		this.TargetItemName = dict.GetVariant(className, "TargetItemName");
-		this.EvolveHours = dict.GetVariant(className, "EvolveHours");
-		this.IndoorsOnly = dict.GetVariant(className, "IndoorsOnly");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.TargetItemName = entry.GetString("TargetItemName");
+		this.EvolveHours = entry.GetInt("EvolveHours");
+		this.IndoorsOnly = entry.GetBool("IndoorsOnly");
 	}
 }

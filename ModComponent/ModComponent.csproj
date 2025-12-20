@@ -3,7 +3,7 @@
 	
 	<PropertyGroup>
 		<!--This is the .NET version the mod will be compiled with. Don't change it.-->
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 
 		<!--This tells the compiler to use the latest C# version.-->
 		<LangVersion>Latest</LangVersion>
@@ -30,7 +30,7 @@
 	<!--This is for NuGet.-->
 	<PropertyGroup>
 		<Authors>STBlade</Authors>
-		<Version>6.3.0</Version>
+		<Version>7.0.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<PackageId>STBlade.Modding.TLD.ModComponent</PackageId>
 		<PackageTags>MelonLoader Modding TLD Asset Loading Utility Mod</PackageTags>
@@ -43,37 +43,57 @@
 
 
 		<NoWarn>1591</NoWarn>
-		<BaseOutputPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\_BUILDS\</BaseOutputPath>
-		<PackageOutputPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\_BUILDS\</PackageOutputPath>
+		<BaseOutputPath>..\Output</BaseOutputPath>
+		<PackageOutputPath>..\Output</PackageOutputPath>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<ILRepackEnabled>true</ILRepackEnabled>
+		<ILRepackDeleteEnabled>false</ILRepackDeleteEnabled>
+		<ILRepackCopyDocumentationEnabled>false</ILRepackCopyDocumentationEnabled>
+		<ILRepackImportance>High</ILRepackImportance>
+		<ILRepackDeleteImportance>Low</ILRepackDeleteImportance>
+		<ILRepackCommandImportance>Low</ILRepackCommandImportance>
+		<ILRepackCommandExtra>/copyattrs /out:../Release/ModComponent.dll</ILRepackCommandExtra>
+	</PropertyGroup>
+	
 	<ItemGroup>
 	  <Compile Remove="bin\**" />
 	  <Compile Remove="Docs\**" />
+	  <Compile Remove="Release\**" />
 	  <EmbeddedResource Remove="bin\**" />
 	  <EmbeddedResource Remove="Docs\**" />
+	  <EmbeddedResource Remove="Release\**" />
 	  <None Remove="bin\**" />
 	  <None Remove="Docs\**" />
+	  <None Remove="Release\**" />
 	</ItemGroup>
 
 	<!--This is the of packages that the mod references.-->
 	<ItemGroup>
-		<!--This package contains almost everything a person could possibly need to reference while modding.-->
+	
 		<PackageReference Include="DefaultDocumentation" Version="0.8.2">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="STBlade.Modding.TLD.CraftingRevisions" Version="2.2.3" />
-		<PackageReference Include="STBlade.Modding.TLD.GearSpawner" Version="2.3.1" />
+		<PackageReference Include="ricaun.ILRepack" Version="*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		
 		<PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.50.3" />
-		<PackageReference Include="STBlade.Modding.TLD.LocalizationUtilities" Version="2.0.0" />
 		<PackageReference Include="STBlade.Modding.TLD.ModSettings" Version="1.9.0" />
-		<!--The package version here in this template may be outdated and need to be updated. Visual Studio can update package versions automatically.-->
-		<!--If the mod references any other mods (such as ModSettings), that NuGet package will also need to be listed here.-->
+
+
 	</ItemGroup>
 	<ItemGroup>
-	  <Reference Include="UnityEngine.CoreModule">
-	    <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\MelonLoader\Dependencies\Il2CppAssemblyGenerator\Cpp2IL\cpp2il_out\UnityEngine.CoreModule.dll</HintPath>
-	  </Reference>
+	  <ProjectReference Include="..\CraftingRevisions\CraftingRevisions.csproj" />
+	  <ProjectReference Include="..\GearSpawner\GearSpawner.csproj" />
+	  <ProjectReference Include="..\LocalizationUtilities\LocalizationUtilities.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ILRepackIgnoreReferences Include="STBlade" />
 	</ItemGroup>
 	
 </Project>

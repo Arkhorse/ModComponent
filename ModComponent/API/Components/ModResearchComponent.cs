@@ -16,13 +16,15 @@ public class ModResearchComponent : ModBaseComponent
 	public ModResearchComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModResearchComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModResearchComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.SkillType = dict.GetEnum<SkillType>(className, "SkillType");
-		this.TimeRequirementHours = dict.GetVariant(className, "TimeRequirementHours");
-		this.SkillPoints = dict.GetVariant(className, "SkillPoints");
-		this.NoBenefitAtSkillLevel = dict.GetVariant(className, "NoBenefitAtSkillLevel");
-		this.ReadAudio = dict.GetVariant(className, "ReadAudio");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.SkillType = entry.GetEnum<SkillType>("SkillType");
+		this.TimeRequirementHours = entry.GetInt("TimeRequirementHours");
+		this.SkillPoints = entry.GetInt("SkillPoints");
+		this.NoBenefitAtSkillLevel = entry.GetInt("NoBenefitAtSkillLevel");
+		this.ReadAudio = entry.GetString("ReadAudio");
 	}
 }

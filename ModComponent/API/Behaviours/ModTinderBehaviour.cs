@@ -9,8 +9,10 @@ public class ModTinderBehaviour : ModFireMakingBaseBehaviour
 	public ModTinderBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeBehaviour(ProxyObject dict, string className = "ModTinderBehaviour")
+	internal override void InitializeBehaviour(JsonDict jsonDict, string className = "ModTinderBehaviour")
 	{
-		base.InitializeBehaviour(dict, className);
+		base.InitializeBehaviour(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
 	}
 }

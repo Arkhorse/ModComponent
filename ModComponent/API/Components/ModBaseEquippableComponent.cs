@@ -218,11 +218,13 @@ public abstract class ModBaseEquippableComponent : ModBaseComponent
 	}
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string inheritanceName)
+	internal override void InitializeComponent(JsonDict jsonDict, string inheritanceName)
 	{
-		base.InitializeComponent(dict, inheritanceName);
-		this.EquippedModelPrefabName = dict.GetStringOrNull(inheritanceName, "EquippedModelPrefab");
-		this.ImplementationType = dict.GetStringOrNull(inheritanceName, "ImplementationType");
-		this.EquippingAudio = dict.GetStringOrNull(inheritanceName, "EquippingAudio");
+		base.InitializeComponent(jsonDict, inheritanceName);
+		JsonDictEntry entry = jsonDict.GetEntry(inheritanceName);
+
+		this.EquippedModelPrefabName = entry.GetString("EquippedModelPrefab");
+		this.ImplementationType = entry.GetString("ImplementationType");
+		this.EquippingAudio = entry.GetString("EquippingAudio");
 	}
 }

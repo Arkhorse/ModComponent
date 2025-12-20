@@ -2,9 +2,9 @@
 
 namespace CraftingRevisions
 {
-	internal class Settings : JsonModSettings
+	public class Settings : JsonModSettings
 	{
-		internal static Settings instance = new Settings();
+		public static Settings instance = new Settings();
 
 		[Name("Crafting Menu Scroll Steps")]
 		[Description("Number of steps moved in the crafting menu for one scroll. Default = 7")]

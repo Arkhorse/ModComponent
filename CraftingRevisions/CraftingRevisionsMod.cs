@@ -18,7 +18,7 @@ namespace CraftingRevisions
 
 		public override void OnInitializeMelon()
 		{
-			Settings.instance.AddToModSettings("Crafting Revisions");
+			//Settings.instance.AddToModSettings("Crafting Revisions");
 		}
 	}
 }

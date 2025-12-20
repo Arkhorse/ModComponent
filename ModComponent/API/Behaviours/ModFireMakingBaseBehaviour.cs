@@ -25,9 +25,9 @@ public abstract class ModFireMakingBaseBehaviour : MonoBehaviour
 	public ModFireMakingBaseBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal virtual void InitializeBehaviour(ProxyObject dict, string className)
+	internal virtual void InitializeBehaviour(JsonDict jsonDict, string className)
 	{
-		this.SuccessModifier = dict.GetVariant(className, "SuccessModifier");
-		this.DurationOffset = dict.GetVariant(className, "DurationOffset");
+		//this.SuccessModifier = entry.GetString("SuccessModifier");
+		//this.DurationOffset = entry.GetString("DurationOffset");
 	}
 }

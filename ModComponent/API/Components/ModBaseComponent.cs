@@ -118,7 +118,7 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	/// </summary>
 	public GameObject? NormalModel;
 
-    [HideFromIl2Cpp]
+	[HideFromIl2Cpp]
 	public string GetEffectiveConsoleName()
 	{
 		if (string.IsNullOrEmpty(this.ConsoleName))
@@ -132,31 +132,35 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	public ModBaseComponent(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal virtual void InitializeComponent(ProxyObject dict, string inheritanceName)
+	internal virtual void InitializeComponent(JsonDict jsonDict, string inheritanceName)
 	{
-		this.ConsoleName = NameUtils.RemoveGearPrefix(this.gameObject.name);
-		this.DisplayNameLocalizationId = dict.GetVariant(inheritanceName, "DisplayNameLocalizationId");
-		this.DescriptionLocalizatonId = dict.GetVariant(inheritanceName, "DescriptionLocalizatonId");
-		this.InventoryActionLocalizationId = dict.GetVariant(inheritanceName, "InventoryActionLocalizationId");
-		this.WeightKG = dict.GetVariant(inheritanceName, "WeightKG");
-		this.DaysToDecay = dict.GetVariant(inheritanceName, "DaysToDecay");
-		this.MaxHP = dict.GetVariant(inheritanceName, "MaxHP");
-		this.InitialCondition = dict.GetEnum<GearStartCondition>(inheritanceName, "InitialCondition");
-		this.InventoryCategory = dict.GetEnum<ItemCategory>(inheritanceName, "InventoryCategory");
-		this.PickUpAudio = dict.GetVariant(inheritanceName, "PickUpAudio");
-		this.PutBackAudio = dict.GetVariant(inheritanceName, "PutBackAudio");
-		this.StowAudio = dict.GetVariant(inheritanceName, "StowAudio");
-		this.WornOutAudio = dict.GetVariant(inheritanceName, "WornOutAudio");
-		this.InspectOnPickup = dict.GetVariant(inheritanceName, "InspectOnPickup");
-		this.InspectDistance = dict.GetVariant(inheritanceName, "InspectDistance");
-		this.InspectAngles = dict.GetVector3(inheritanceName, "InspectAngles");
-		this.InspectOffset = dict.GetVector3(inheritanceName, "InspectOffset");
-		this.InspectScale = dict.GetVector3(inheritanceName, "InspectScale");
-		this.NormalModel = ModUtils.GetChild(this.gameObject, dict.GetVariant(inheritanceName, "NormalModel"));
-		this.InspectModel = ModUtils.GetChild(this.gameObject, dict.GetVariant(inheritanceName, "InspectModel"));
-		this.Validate();
+		JsonDictEntry? jsonDictEntry = jsonDict.GetEntry(inheritanceName);
+		if (jsonDictEntry != null)
+		{
+			this.ConsoleName = NameUtils.RemoveGearPrefix(this.gameObject.name);
+			this.DisplayNameLocalizationId = jsonDictEntry.GetString("DisplayNameLocalizationId");
+			this.DescriptionLocalizatonId = jsonDictEntry.GetString("DescriptionLocalizatonId");
+			this.InventoryActionLocalizationId = jsonDictEntry.GetString("InventoryActionLocalizationId");
+			this.WeightKG = jsonDictEntry.GetFloat("WeightKG");
+			this.DaysToDecay = jsonDictEntry.GetFloat("DaysToDecay");
+			this.MaxHP = jsonDictEntry.GetFloat("MaxHP");
+			this.InitialCondition = jsonDictEntry.GetEnum<GearStartCondition>("InitialCondition");
+			this.InventoryCategory = jsonDictEntry.GetEnum<ItemCategory>("InventoryCategory");
+			this.PickUpAudio = jsonDictEntry.GetString("PickUpAudio");
+			this.PutBackAudio = jsonDictEntry.GetString("PutBackAudio");
+			this.StowAudio = jsonDictEntry.GetString("StowAudio");
+			this.WornOutAudio = jsonDictEntry.GetString("WornOutAudio");
+			this.InspectOnPickup = jsonDictEntry.GetBool("InspectOnPickup");
+			this.InspectDistance = jsonDictEntry.GetFloat("InspectDistance");
+			this.InspectAngles = jsonDictEntry.GetVector3("InspectAngles");
+			this.InspectOffset = jsonDictEntry.GetVector3("InspectOffset");
+			this.InspectScale = jsonDictEntry.GetVector3("InspectScale");
+			this.NormalModel = ModUtils.GetChild(this.gameObject, jsonDictEntry.GetString("NormalModel"));
+			this.InspectModel = ModUtils.GetChild(this.gameObject, jsonDictEntry.GetString("InspectModel"));
+			this.Validate();
+		}
 
-    }
+	}
 
 	internal virtual void Validate()
 	{

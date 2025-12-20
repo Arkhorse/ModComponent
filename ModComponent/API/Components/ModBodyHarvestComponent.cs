@@ -108,23 +108,25 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	public ModBodyHarvestComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModBodyHarvestComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModBodyHarvestComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.CanCarry = dict.GetVariant(className, "CanCarry");
-		this.HarvestAudio = dict.GetVariant(className, "HarvestAudio");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry("className");
 
-		this.GutPrefab = dict.GetVariant(className, "GutPrefab");
-		this.GutQuantity = dict.GetVariant(className, "GutQuantity");
-		this.GutWeightKgPerUnit = dict.GetVariant(className, "GutWeightKgPerUnit");
+		this.CanCarry = entry.GetBool("CanCarry");
+		this.HarvestAudio = entry.GetString("HarvestAudio");
 
-		this.HidePrefab = dict.GetVariant(className, "HidePrefab");
-		this.HideQuantity = dict.GetVariant(className, "HideQuantity");
-		this.HideWeightKgPerUnit = dict.GetVariant(className, "HideWeightKgPerUnit");
+		this.GutPrefab = entry.GetString("GutPrefab");
+		this.GutQuantity = entry.GetInt("GutQuantity");
+		this.GutWeightKgPerUnit = entry.GetFloat("GutWeightKgPerUnit");
 
-		this.MeatPrefab = dict.GetVariant(className, "MeatPrefab");
-		this.MeatAvailableMinKG = dict.GetVariant(className, "MeatAvailableMinKG");
-		this.MeatAvailableMaxKG = dict.GetVariant(className, "MeatAvailableMaxKG");
+		this.HidePrefab = entry.GetString("HidePrefab");
+		this.HideQuantity = entry.GetInt("HideQuantity");
+		this.HideWeightKgPerUnit = entry.GetFloat("HideWeightKgPerUnit");
+
+		this.MeatPrefab = entry.GetString("MeatPrefab");
+		this.MeatAvailableMinKG = entry.GetFloat("MeatAvailableMinKG");
+		this.MeatAvailableMaxKG = entry.GetFloat("MeatAvailableMaxKG");
 
 		this.CanQuarter = false;
 		this.QuarterAudio = "";
@@ -135,9 +137,9 @@ public class ModBodyHarvestComponent : ModBaseComponent
 		this.QuarterPrefabSpawnAngle = 0f;
 		this.QuarterPrefabSpawnRadius = 1f;
 
-		this.GutLabelOverride = dict.GetStringOrNull(className, "GutLabelOverride");
-		this.HideLabelOverride = dict.GetStringOrNull(className, "HideLabelOverride");
-		this.MeatLabelOverride = dict.GetStringOrNull(className, "MeatLabelOverride");
+		this.GutLabelOverride = entry.GetString("GutLabelOverride");
+		this.HideLabelOverride = entry.GetString("HideLabelOverride");
+		this.MeatLabelOverride = entry.GetString("MeatLabelOverride");
 
 	}
 }

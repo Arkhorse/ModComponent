@@ -77,18 +77,20 @@ public class ModBedComponent : ModBaseComponent
 	public ModBedComponent(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModBedComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModBedComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.ConditionGainPerHour = dict.GetVariant(className, "ConditionGainPerHour");
-		this.AdditionalConditionGainPerHour = dict.GetVariant(className, "AdditionalConditionGainPerHour");
-		this.WarmthBonusCelsius = dict.GetVariant(className, "WarmthBonusCelsius");
-		this.DegradePerHour = dict.GetVariant(className, "DegradePerHour");
-		this.BearAttackModifier = dict.GetVariant(className, "BearAttackModifier");
-		this.WolfAttackModifier = dict.GetVariant(className, "WolfAttackModifier");
-		this.OpenAudio = dict.GetVariant(className, "OpenAudio");
-		this.CloseAudio = dict.GetVariant(className, "CloseAudio");
-		this.PackedMesh = ModUtils.GetChild(this.gameObject, dict.GetVariant(className, "PackedMesh"));
-		this.UsableMesh = ModUtils.GetChild(this.gameObject, dict.GetVariant(className, "UsableMesh"));
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry("className");
+
+		this.ConditionGainPerHour = entry.GetFloat("ConditionGainPerHour");
+		this.AdditionalConditionGainPerHour = entry.GetFloat("AdditionalConditionGainPerHour");
+		this.WarmthBonusCelsius = entry.GetFloat("WarmthBonusCelsius");
+		this.DegradePerHour = entry.GetFloat("DegradePerHour");
+		this.BearAttackModifier = entry.GetFloat("BearAttackModifier");
+		this.WolfAttackModifier = entry.GetFloat("WolfAttackModifier");
+		this.OpenAudio = entry.GetString("OpenAudio");
+		this.CloseAudio = entry.GetString("CloseAudio");
+		this.PackedMesh = ModUtils.GetChild(this.gameObject, entry.GetString("PackedMesh"));
+		this.UsableMesh = ModUtils.GetChild(this.gameObject, entry.GetString("UsableMesh"));
 	}
 }

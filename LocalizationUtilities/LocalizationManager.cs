@@ -2,6 +2,7 @@
 using MelonLoader.TinyJSON;
 using System.Text;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace LocalizationUtilities;
 
@@ -27,7 +28,7 @@ public static class LocalizationManager
 		}
 	}
 
-	
+
 	private static string GetText(TextAsset textAsset)
 	{
 		const byte leftCurlyBracket = (byte)'{';
@@ -53,16 +54,25 @@ public static class LocalizationManager
 			return false;
 		}
 
-		ProxyObject dict = (ProxyObject)JSON.Load(contents);
-		List<LocalizationEntry> newEntries = new();
-		foreach (KeyValuePair<string, Variant> pair in dict)
+		// Newtonsoft re-work
+		try
 		{
-			string locID = pair.Key;
-			Dictionary<string, string> locDict = pair.Value.Make<Dictionary<string, string>>();
-			newEntries.Add(new LocalizationEntry(locID, locDict));
+			var json = JsonConvert.DeserializeObject<LocalizationJSON>(contents);
+			List<LocalizationEntry> newEntries = new();
+			foreach (var entry in json)
+			{
+				newEntries.Add(new LocalizationEntry(entry.Key, entry.Value));
+			}
+
+			AddLocalizations(new LocalizationSet(newEntries, true));
+			return true;
 		}
-		AddLocalizations(new LocalizationSet(newEntries, true));
-		return true;
+		catch (Exception e)
+		{
+			MelonLogger.Error($"Failed to deserialize: {e}");
+		}
+		return false;
+
 	}
 
 	/// <summary>
@@ -70,15 +80,15 @@ public static class LocalizationManager
 	/// </summary>
 	/// <param name="values">An array of string variables.</param>
 	/// <returns>A new array containing the trimmed values.</returns>
-	private static string[] Trim(string[] values)
-	{
-		string[] result = new string[values.Length];
+	//private static string[] Trim(string[] values)
+	//{
+	//	string[] result = new string[values.Length];
 
-		for (int i = 0; i < values.Length; i++)
-		{
-			result[i] = values[i].Trim();
-		}
+	//	for (int i = 0; i < values.Length; i++)
+	//	{
+	//		result[i] = values[i].Trim();
+	//	}
 
-		return result;
-	}
+	//	return result;
+	//}
 }

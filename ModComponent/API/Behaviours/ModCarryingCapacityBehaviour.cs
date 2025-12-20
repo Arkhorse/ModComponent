@@ -15,8 +15,10 @@ public class ModCarryingCapacityBehaviour : MonoBehaviour
 	public ModCarryingCapacityBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModCarryingCapacityBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModCarryingCapacityBehaviour")
 	{
-		this.MaxCarryCapacityKGBuff = dict.GetVariant(className, "MaxCarryCapacityKGBuff");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.MaxCarryCapacityKGBuff = entry.GetFloat("MaxCarryCapacityKGBuff");
 	}
 }

@@ -67,25 +67,27 @@ public partial class ModCookableComponent : ModBaseComponent
 	public ModCookableComponent(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModCookableComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModCookableComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.BurntMinutes = dict.GetVariant(className, "BurntMinutes");
-		this.Cooking = dict.GetVariant(className, "Cooking");
-		this.CookingAudio = dict.GetVariant(className, "CookingAudio");
-		this.StartCookingAudio = dict.GetVariant(className, "StartCookingAudio");
-		this.CookingMinutes = dict.GetVariant(className, "CookingMinutes");
-		if (string.IsNullOrEmpty(dict.GetVariant(className, "CookingResult")))
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.BurntMinutes = entry.GetInt("BurntMinutes");
+		this.Cooking = entry.GetBool("Cooking");
+		this.CookingAudio = entry.GetString("CookingAudio");
+		this.StartCookingAudio = entry.GetString("StartCookingAudio");
+		this.CookingMinutes = entry.GetInt("CookingMinutes");
+		if (string.IsNullOrEmpty(entry.GetString(className, "CookingResult")))
 		{
 			this.CookingResult = null;
 		}
 		else
 		{
-			string assetName = dict.GetVariant(className, "CookingResult").ToString();
+			string assetName = entry.GetString("CookingResult").ToString();
 			this.CookingResult = AssetBundleUtils.LoadAsset<GameObject>(assetName);
 		}
-		this.CookingUnitsRequired = dict.GetVariant(className, "CookingUnitsRequired");
-		this.CookingWaterRequired = dict.GetVariant(className, "CookingWaterRequired");
-		this.Type = dict.GetEnum<CookableType>(className, "Type");
+		this.CookingUnitsRequired = entry.GetInt("CookingUnitsRequired");
+		this.CookingWaterRequired = entry.GetFloat("CookingWaterRequired");
+		this.Type = entry.GetEnum<CookableType>("Type");
 	}
 }

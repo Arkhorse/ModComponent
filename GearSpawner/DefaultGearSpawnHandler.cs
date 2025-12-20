@@ -13,12 +13,12 @@ public class DefaultGearSpawnHandler : ProbabilisticGearSpawnHandler
 	{
 		var multiplier = difficultyLevel switch
 		{
-			DifficultyLevel.Pilgram => Math.Max(0f, Settings.Instance.pilgramSpawnProbabilityMultiplier),
-			DifficultyLevel.Voyager => Math.Max(0f, Settings.Instance.voyagerSpawnProbabilityMultiplier),
-			DifficultyLevel.Stalker => Math.Max(0f, Settings.Instance.stalkerSpawnProbabilityMultiplier),
-			DifficultyLevel.Interloper => Math.Max(0f, Settings.Instance.interloperSpawnProbabilityMultiplier),
+			DifficultyLevel.Pilgram => Math.Max(0f, Settings.instance.pilgramSpawnProbabilityMultiplier),
+			DifficultyLevel.Voyager => Math.Max(0f, Settings.instance.voyagerSpawnProbabilityMultiplier),
+			DifficultyLevel.Stalker => Math.Max(0f, Settings.instance.stalkerSpawnProbabilityMultiplier),
+			DifficultyLevel.Interloper => Math.Max(0f, Settings.instance.interloperSpawnProbabilityMultiplier),
 //			DifficultyLevel.Storymode => Math.Max(0f, Settings.Instance.storySpawnProbabilityMultiplier),
-			DifficultyLevel.Challenge => Math.Max(0f, Settings.Instance.challengeSpawnProbabilityMultiplier),
+			DifficultyLevel.Challenge => Math.Max(0f, Settings.instance.challengeSpawnProbabilityMultiplier),
 			_ => 1f,
 		};
 		if (multiplier == 0f)

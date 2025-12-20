@@ -65,15 +65,17 @@ public class ModStackableBehaviour : MonoBehaviour
 	public ModStackableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModStackableBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModStackableBehaviour")
 	{
-		this.MultipleUnitTextID = dict.GetVariant(className, "MultipleUnitTextId");
-		this.StackSprite = dict.GetVariant(className, "StackSprite");
-		this.SingleUnitTextID = dict.GetVariant(className, "SingleUnitTextId");
-		this.UnitsPerItem = dict.GetVariant(className, "UnitsPerItem");
-		this.ChanceFull = dict.GetVariant(className, "ChanceFull");
-		this.ShareStackWithGear = dict.GetStringArrayOrEmpty(className, "ShareStackWithGear");
-		this.InstantiateStackItem = dict.GetStringOrNull(className, "InstantiateStackItem");
-		this.StackConditionDifferenceConstraint = dict.GetFloat(className, "StackConditionDifferenceConstraint",0.01f);
+		JsonDictEntry entry = jsonDict.GetEntry("className");
+
+		this.MultipleUnitTextID = entry.GetString("MultipleUnitTextId");
+		this.StackSprite = entry.GetString("StackSprite");
+		this.SingleUnitTextID = entry.GetString("SingleUnitTextId");
+		this.UnitsPerItem = entry.GetInt("UnitsPerItem");
+		this.ChanceFull = entry.GetFloat("ChanceFull");
+		this.ShareStackWithGear = entry.GetArray<string>("ShareStackWithGear");
+		this.InstantiateStackItem = entry.GetString("InstantiateStackItem");
+		this.StackConditionDifferenceConstraint = entry.GetFloat("StackConditionDifferenceConstraint", 0.01f);
 	}
 }

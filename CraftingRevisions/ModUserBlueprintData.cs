@@ -1,9 +1,9 @@
 ﻿using Il2Cpp;
 using Il2CppTLD.Gear;
 using MelonLoader;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -32,11 +32,11 @@ namespace CraftingRevisions
 		public bool IgnoreLockInSurvival { get; set; } = true;
 		public bool AppearsInStoryOnly { get; set; } = false;
 		public bool AppearsInSurvivalOnly { get; set; } = false;
-		[JsonConverter(typeof(JsonStringEnumConverter))]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SkillType AppliedSkill { get; set; } = SkillType.None;
-		[JsonConverter(typeof(JsonStringEnumConverter))]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SkillType ImprovedSkill { get; set; } = SkillType.None;
-		[JsonConverter(typeof(JsonStringEnumConverter))]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public CraftingLocation RequiredCraftingLocation { get; set; } = CraftingLocation.Anywhere;
 		public bool RequiresLitFire { get; set; } = false;
 		public bool CanIncreaseRepairSkill { get; set; } = false;
@@ -44,7 +44,7 @@ namespace CraftingRevisions
 		#region Json
 		public static ModUserBlueprintData ParseFromJson(string jsonText)
 		{
-			return JsonSerializer.Deserialize<ModUserBlueprintData>(jsonText) ?? throw new ArgumentException("Could not parse blueprint data from the text.", nameof(jsonText));
+			return JsonConvert.DeserializeObject<ModUserBlueprintData>(jsonText) ?? throw new ArgumentException("Could not parse blueprint data from the text.", nameof(jsonText));
 		}
 		#endregion
 

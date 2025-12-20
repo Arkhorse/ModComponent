@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LocalizationUtilities</name>
+    </assembly>
+    <members>
+        <member name="T:LocalizationUtilities.LocalizationEntry">
+            <summary>
+            
+            </summary>
+            <param name="LocalizationID">The id for this localized string.</param>
+            <param name="Map">A LanguageName : LocalizedString dictionary</param>
+        </member>
+        <member name="M:LocalizationUtilities.LocalizationEntry.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="LocalizationID">The id for this localized string.</param>
+            <param name="Map">A LanguageName : LocalizedString dictionary</param>
+        </member>
+        <member name="P:LocalizationUtilities.LocalizationEntry.LocalizationID">
+            <summary>The id for this localized string.</summary>
+        </member>
+        <member name="P:LocalizationUtilities.LocalizationEntry.Map">
+            <summary>A LanguageName : LocalizedString dictionary</summary>
+        </member>
+    </members>
+</doc>

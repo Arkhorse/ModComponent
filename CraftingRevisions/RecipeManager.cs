@@ -53,5 +53,18 @@ namespace CraftingRevisions
 			}
 
 		}
+
+		//Special thanks: Romain
+		[HarmonyPostfix]
+		[HarmonyPatch(typeof(CookableListItem), nameof(CookableListItem.SetCookable))]
+		private static void CookableListItem_SetCookable(CookableListItem __instance, CookableItem cookableItem, CookingPotItem cookingPot)
+		{
+			if (cookableItem.m_GearItem.GetComponent<Cookable>().m_CookedPrefab != null)
+			{
+				__instance.m_ItemIcon.mainTexture = cookableItem.m_GearItem.GetComponent<Cookable>().m_CookedPrefab.GetInventoryIconTexture();
+				__instance.gameObject.GetComponentInChildren<UITexture>().enabled = true;
+			}
+
+		}
 	}
 }

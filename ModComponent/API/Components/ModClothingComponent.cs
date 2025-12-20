@@ -203,34 +203,36 @@ public partial class ModClothingComponent : ModBaseComponent
 	public ModClothingComponent(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModClothingComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModClothingComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.Region = dict.GetEnum<BodyRegion>(className, "Region");
-		this.MinLayer = dict.GetEnum<ClothingLayer>(className, "MinLayer");
-		this.MaxLayer = dict.GetEnum<ClothingLayer>(className, "MaxLayer");
-		this.MovementSound = dict.GetEnum<MovementSounds>(className, "MovementSound");
-//		this.Footwear = dict.GetEnum<FootwearType>(className, "Footwear");
-		this.DaysToDecayWornOutside = dict.GetVariant(className, "DaysToDecayWornOutside");
-		this.DaysToDecayWornInside = dict.GetVariant(className, "DaysToDecayWornInside");
-		this.Warmth = dict.GetVariant(className, "Warmth");
-		this.WarmthWhenWet = dict.GetVariant(className, "WarmthWhenWet");
-		this.Windproof = dict.GetVariant(className, "Windproof");
-		this.Waterproofness = dict.GetVariant(className, "Waterproofness");
-		this.Toughness = dict.GetVariant(className, "Toughness");
-		this.SprintBarReduction = dict.GetVariant(className, "SprintBarReduction");
-		this.DecreaseAttackChance = dict.GetVariant(className, "DecreaseAttackChance");
-		this.IncreaseFleeChance = dict.GetVariant(className, "IncreaseFleeChance");
-		this.HoursToDryNearFire = dict.GetVariant(className, "HoursToDryNearFire");
-		this.HoursToDryWithoutFire = dict.GetVariant(className, "HoursToDryWithoutFire");
-		this.HoursToFreeze = dict.GetVariant(className, "HoursToFreeze");
-		this.MainTexture = dict.GetVariant(className, "MainTexture");
-		this.BlendTexture = dict.GetVariant(className, "BlendTexture");
-		this.DrawLayer = dict.GetVariant(className, "DrawLayer");
-		this.ImplementationType = dict.GetVariant(className, "ImplementationType");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.Region = entry.GetEnum<BodyRegion>("Region");
+		this.MinLayer = entry.GetEnum<ClothingLayer>("MinLayer");
+		this.MaxLayer = entry.GetEnum<ClothingLayer>("MaxLayer");
+		this.MovementSound = entry.GetEnum<MovementSounds>("MovementSound");
+		//		this.Footwear = jsonDict.GetEnum<FootwearType>(className, "Footwear");
+		this.DaysToDecayWornOutside = entry.GetFloat("DaysToDecayWornOutside");
+		this.DaysToDecayWornInside = entry.GetFloat("DaysToDecayWornInside");
+		this.Warmth = entry.GetFloat("Warmth");
+		this.WarmthWhenWet = entry.GetFloat("WarmthWhenWet");
+		this.Windproof = entry.GetFloat("Windproof");
+		this.Waterproofness = entry.GetFloat("Waterproofness");
+		this.Toughness = entry.GetFloat("Toughness");
+		this.SprintBarReduction = entry.GetFloat("SprintBarReduction");
+		this.DecreaseAttackChance = entry.GetInt("DecreaseAttackChance");
+		this.IncreaseFleeChance = entry.GetInt("IncreaseFleeChance");
+		this.HoursToDryNearFire = entry.GetFloat("HoursToDryNearFire");
+		this.HoursToDryWithoutFire = entry.GetFloat("HoursToDryWithoutFire");
+		this.HoursToFreeze = entry.GetFloat("HoursToFreeze");
+		this.MainTexture = entry.GetString("MainTexture");
+		this.BlendTexture = entry.GetString("BlendTexture");
+		this.DrawLayer = entry.GetInt("DrawLayer");
+		this.ImplementationType = entry.GetString("ImplementationType");
 		// added 2.25
-		this.FirstPersonPrefabMale = dict.GetStringOrNull(className, "FirstPersonPrefabMale");
-		this.FirstPersonPrefabFemale = dict.GetStringOrNull(className, "FirstPersonPrefabFemale");
-		this.PreventAllDamageFromSource = dict.GetEnum<DamageReason>(className, "PreventAllDamageFromSource");
+		this.FirstPersonPrefabMale = entry.GetString("FirstPersonPrefabMale");
+		this.FirstPersonPrefabFemale = entry.GetString("FirstPersonPrefabFemale");
+		this.PreventAllDamageFromSource = entry.GetEnum<DamageReason>("PreventAllDamageFromSource");
 	}
 }

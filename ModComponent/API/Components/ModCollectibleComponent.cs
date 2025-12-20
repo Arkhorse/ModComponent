@@ -25,11 +25,13 @@ public partial class ModCollectibleComponent : ModBaseComponent
 	public ModCollectibleComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModCollectibleComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModCollectibleComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.HudMessageLocalizationId = dict.GetVariant(className, "HudMessageLocalizationId");
-		this.NarrativeTextLocalizationId = dict.GetVariant(className, "NarrativeTextLocalizationId");
-		this.TextAlignment = dict.GetEnum<NGUIText.Alignment>(className, "TextAlignment");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.HudMessageLocalizationId = entry.GetString("HudMessageLocalizationId");
+		this.NarrativeTextLocalizationId = entry.GetString("NarrativeTextLocalizationId");
+		this.TextAlignment = entry.GetEnum<NGUIText.Alignment>("TextAlignment");
 	}
 }

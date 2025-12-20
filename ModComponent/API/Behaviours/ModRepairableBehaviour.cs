@@ -41,13 +41,15 @@ public class ModRepairableBehaviour : MonoBehaviour
 	public ModRepairableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModRepairableBehaviour")
 	{
-		this.Audio = dict.GetVariant(className, "Audio");
-		this.Minutes = dict.GetVariant(className, "Minutes");
-		this.Condition = dict.GetVariant(className, "Condition");
-		this.RequiredTools = dict.GetStringArray(className, "RequiredTools");
-		this.MaterialNames = dict.GetStringArray(className, "MaterialNames");
-		this.MaterialCounts = dict.GetIntArray(className, "MaterialCounts");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.Audio = entry.GetString("Audio");
+		this.Minutes = entry.GetInt("Minutes");
+		this.Condition = entry.GetInt("Condition");
+		this.RequiredTools = entry.GetArray<string>("RequiredTools");
+		this.MaterialNames = entry.GetArray<string>("MaterialNames");
+		this.MaterialCounts = entry.GetArray<int>("MaterialCounts");
 	}
 }

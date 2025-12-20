@@ -22,9 +22,11 @@ public class ModAmmoComponent : ModBaseComponent
     }
 
     [HideFromIl2Cpp]
-    internal override void InitializeComponent(ProxyObject dict, string className = "ModAmmoComponent")
+    internal override void InitializeComponent(JsonDict jsonDict, string className = "ModAmmoComponent")
     {
-        base.InitializeComponent(dict, className);
-        AmmoForGunType = dict.GetEnum<GunType>(className, "AmmoForGunType");
-    }
+        base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		AmmoForGunType = entry.GetEnum<GunType>("AmmoForGunType");
+	}
 }

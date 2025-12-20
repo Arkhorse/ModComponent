@@ -1,4 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
+using MelonLoader.Utils;
 using ModComponent.API;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
@@ -24,32 +25,40 @@ internal static class ComponentJson
 
 		string name = NameUtils.RemoveGearPrefix(prefab.name);
 		Logger.LogDebug($"Initializing components for {name}");
-		string data = JsonHandler.GetJsonText(name);
-		if(string.IsNullOrEmpty(data))
+		try
 		{
-			throw new Exception($"Json data for {name} was null or empty");
-		}
+			string jsonData = JsonHandler.GetJsonText(name);
+			if (string.IsNullOrEmpty(jsonData))
+			{
+				throw new Exception($"Json data for {name} was null or empty");
+			}
 
-		ProxyObject? dict = JSON.Load(data) as ProxyObject;
-		if (dict == null)
+			JsonDict jsonDict = JsonConvert.DeserializeObject<JsonDict>(jsonData);
+			InitializeComponents(name, prefab, jsonDict);
+
+		} catch (Exception e)
 		{
-			throw new Exception($"Json data for {name} was invalid");
+			Logger.LogError($"Failed to initialize {name}:: {e}");
 		}
-
-		InitializeComponents(prefab, dict);
 	}
 
 	#region InitializeComponents
-	private static void InitializeComponents(GameObject prefab, ProxyObject dict)
+	private static void InitializeComponents(string name, GameObject prefab, JsonDict jsonDict)
 	{
+
+		if (name == null)
+		{
+			throw new ArgumentNullException(nameof(name));
+		}
+
 		if (prefab == null)
 		{
 			throw new ArgumentNullException(nameof(prefab));
 		}
 
-		if (dict == null)
+		if (jsonDict == null)
 		{
-			throw new ArgumentNullException(nameof(dict));
+			throw new ArgumentNullException(nameof(jsonDict));
 		}
 
 		if (ComponentUtils.GetModComponent(prefab) != null)
@@ -58,176 +67,176 @@ internal static class ComponentJson
 		}
 
 		#region Mod Components
-		if (dict.ContainsKey("ModBedComponent"))
+		if (jsonDict.ContainsKey("ModBedComponent"))
 		{
 			ModBedComponent newComponent = ComponentUtils.GetOrCreateComponent<ModBedComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModBodyHarvestComponent"))
+		else if (jsonDict.ContainsKey("ModBodyHarvestComponent"))
 		{
 			ModBodyHarvestComponent newComponent = ComponentUtils.GetOrCreateComponent<ModBodyHarvestComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModCharcoalComponent"))
+		else if (jsonDict.ContainsKey("ModCharcoalComponent"))
 		{
 			ModCharcoalComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCharcoalComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModClothingComponent"))
+		else if (jsonDict.ContainsKey("ModClothingComponent"))
 		{
 			ModClothingComponent newComponent = ComponentUtils.GetOrCreateComponent<ModClothingComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModCollectibleComponent"))
+		else if (jsonDict.ContainsKey("ModCollectibleComponent"))
 		{
 			ModCollectibleComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCollectibleComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModCookableComponent"))
+		else if (jsonDict.ContainsKey("ModCookableComponent"))
 		{
 			ModCookableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCookableComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModCookingPotComponent"))
+		else if (jsonDict.ContainsKey("ModCookingPotComponent"))
 		{
 			ModCookingPotComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCookingPotComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModExplosiveComponent"))
+		else if (jsonDict.ContainsKey("ModExplosiveComponent"))
 		{
 			ModExplosiveComponent newComponent = ComponentUtils.GetOrCreateComponent<ModExplosiveComponent>(prefab);
-			newComponent.InitializeComponent(dict, "ModExplosiveComponent");
+			newComponent.InitializeComponent(jsonDict, "ModExplosiveComponent");
 		}
-		else if (dict.ContainsKey("ModFirstAidComponent"))
+		else if (jsonDict.ContainsKey("ModFirstAidComponent"))
 		{
 			ModFirstAidComponent newComponent = ComponentUtils.GetOrCreateComponent<ModFirstAidComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModFoodComponent"))
+		else if (jsonDict.ContainsKey("ModFoodComponent"))
 		{
 			ModFoodComponent newComponent = ComponentUtils.GetOrCreateComponent<ModFoodComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModGenericComponent"))
+		else if (jsonDict.ContainsKey("ModGenericComponent"))
 		{
 			ModGenericComponent newComponent = ComponentUtils.GetOrCreateComponent<ModGenericComponent>(prefab);
-			newComponent.InitializeComponent(dict, "ModGenericComponent");
+			newComponent.InitializeComponent(jsonDict, "ModGenericComponent");
 		}
-		else if (dict.ContainsKey("ModGenericEquippableComponent"))
+		else if (jsonDict.ContainsKey("ModGenericEquippableComponent"))
 		{
 			ModGenericEquippableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModGenericEquippableComponent>(prefab);
-			newComponent.InitializeComponent(dict, "ModGenericEquippableComponent");
+			newComponent.InitializeComponent(jsonDict, "ModGenericEquippableComponent");
 		}
-		else if (dict.ContainsKey("ModLiquidComponent"))
+		else if (jsonDict.ContainsKey("ModLiquidComponent"))
 		{
 			ModLiquidComponent newComponent = ComponentUtils.GetOrCreateComponent<ModLiquidComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModPowderComponent"))
+		else if (jsonDict.ContainsKey("ModPowderComponent"))
 		{
 			ModPowderComponent newComponent = ComponentUtils.GetOrCreateComponent<ModPowderComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModPurificationComponent"))
+		else if (jsonDict.ContainsKey("ModPurificationComponent"))
 		{
 			ModPurificationComponent newComponent = ComponentUtils.GetOrCreateComponent<ModPurificationComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModRandomItemComponent"))
+		else if (jsonDict.ContainsKey("ModRandomItemComponent"))
 		{
 			ModRandomItemComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRandomItemComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModRandomWeightedItemComponent"))
+		else if (jsonDict.ContainsKey("ModRandomWeightedItemComponent"))
 		{
 			ModRandomWeightedItemComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRandomWeightedItemComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModResearchComponent"))
+		else if (jsonDict.ContainsKey("ModResearchComponent"))
 		{
 			ModResearchComponent newComponent = ComponentUtils.GetOrCreateComponent<ModResearchComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-		else if (dict.ContainsKey("ModToolComponent"))
+		else if (jsonDict.ContainsKey("ModToolComponent"))
 		{
 			ModToolComponent newComponent = ComponentUtils.GetOrCreateComponent<ModToolComponent>(prefab);
-			newComponent.InitializeComponent(dict);
+			newComponent.InitializeComponent(jsonDict);
 		}
-        else if (dict.ContainsKey("ModAmmoComponent"))
-        {
-            ModAmmoComponent newComponent = ComponentUtils.GetOrCreateComponent<ModAmmoComponent>(prefab);
-            newComponent.InitializeComponent(dict);
-        }
-        #endregion
+		else if (jsonDict.ContainsKey("ModAmmoComponent"))
+		{
+			ModAmmoComponent newComponent = ComponentUtils.GetOrCreateComponent<ModAmmoComponent>(prefab);
+			newComponent.InitializeComponent(jsonDict);
+		}
+		#endregion
 
-        #region Behaviour Components
-        if (dict.ContainsKey("ModAccelerantBehaviour"))
+		#region Behaviour Components
+		if (jsonDict.ContainsKey("ModAccelerantBehaviour"))
 		{
 			ModAccelerantBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModAccelerantBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		else if (dict.ContainsKey("ModBurnableBehaviour"))
+		else if (jsonDict.ContainsKey("ModBurnableBehaviour"))
 		{
 			ModBurnableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModBurnableBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		else if (dict.ContainsKey("ModFireStarterBehaviour"))
+		else if (jsonDict.ContainsKey("ModFireStarterBehaviour"))
 		{
 			ModFireStarterBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModFireStarterBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		else if (dict.ContainsKey("ModTinderBehaviour"))
+		else if (jsonDict.ContainsKey("ModTinderBehaviour"))
 		{
 			ModTinderBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModTinderBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModCarryingCapacityBehaviour"))
+		if (jsonDict.ContainsKey("ModCarryingCapacityBehaviour"))
 		{
 			ModCarryingCapacityBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModCarryingCapacityBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModEvolveBehaviour"))
+		if (jsonDict.ContainsKey("ModEvolveBehaviour"))
 		{
 			ModEvolveBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModEvolveBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModHarvestableBehaviour"))
+		if (jsonDict.ContainsKey("ModHarvestableBehaviour"))
 		{
 			ModHarvestableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModHarvestableBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModMillableBehaviour"))
+		if (jsonDict.ContainsKey("ModMillableBehaviour"))
 		{
 			ModMillableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModMillableBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModRepairableBehaviour"))
+		if (jsonDict.ContainsKey("ModRepairableBehaviour"))
 		{
 			ModRepairableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModRepairableBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModScentBehaviour"))
+		if (jsonDict.ContainsKey("ModScentBehaviour"))
 		{
 			ModScentBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModScentBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModSharpenableBehaviour"))
+		if (jsonDict.ContainsKey("ModSharpenableBehaviour"))
 		{
 			ModSharpenableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModSharpenableBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
-		if (dict.ContainsKey("ModStackableBehaviour"))
+		if (jsonDict.ContainsKey("ModStackableBehaviour"))
 		{
 			ModStackableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModStackableBehaviour>(prefab);
-			newComponent.InitializeBehaviour(dict);
+			newComponent.InitializeBehaviour(jsonDict);
 		}
 		#endregion
 
 		#region Modifications
-		if (dict.ContainsKey("ChangeLayer"))
+		if (jsonDict.ContainsKey("ChangeLayer"))
 		{
 			ChangeLayer newComponent = ComponentUtils.GetOrCreateComponent<ChangeLayer>(prefab);
-			newComponent.InitializeModification(dict);
+			newComponent.InitializeModification(jsonDict);
 		}
 		#endregion
 	}

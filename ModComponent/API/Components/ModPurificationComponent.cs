@@ -14,12 +14,14 @@ public class ModPurificationComponent : ModBaseComponent
 	public ModPurificationComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModPurificationComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModPurificationComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.LitersPurify = dict.GetVariant(className, "LitersPurify");
-		this.ProgressBarDurationSeconds = dict.GetVariant(className, "ProgressBarDurationSeconds");
-		this.ProgressBarLocalizationID = dict.GetVariant(className, "ProgressBarLocalizationID");
-		this.PurifyAudio = dict.GetVariant(className, "PurifyAudio");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.LitersPurify = entry.GetFloat("LitersPurify");
+		this.ProgressBarDurationSeconds = entry.GetFloat("ProgressBarDurationSeconds");
+		this.ProgressBarLocalizationID = entry.GetString("ProgressBarLocalizationID");
+		this.PurifyAudio = entry.GetString("PurifyAudio");
 	}
 }

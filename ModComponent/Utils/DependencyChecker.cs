@@ -131,7 +131,7 @@ namespace ModComponent.Utils
 									continue;
 								}
 
-								BuildFileEntry buildFileEntry = JsonSerializer.Deserialize<BuildFileEntry>(data);
+								BuildFileEntry buildFileEntry = JsonConvert.DeserializeObject<BuildFileEntry>(data);
 								if (buildFileEntry != null)
 								{
 									Logger.LogDebug($"buildinfo FOUND : {buildFileEntry.Name} {buildFileEntry.Requires.Length} {buildFileEntry.RequiresDLC}");
@@ -162,7 +162,7 @@ namespace ModComponent.Utils
 
 			if (!string.IsNullOrEmpty(data))
 			{
-				GlobalDepEntries = JsonSerializer.Deserialize<List<DepEntry>>(data);
+				GlobalDepEntries = JsonConvert.DeserializeObject<List<DepEntry>>(data);
 			}
 
 		}

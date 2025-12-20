@@ -24,11 +24,13 @@ public class ModBurnableBehaviour : ModFireMakingBaseBehaviour
 	public ModBurnableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeBehaviour(ProxyObject dict, string className = "ModBurnableBehaviour")
+	internal override void InitializeBehaviour(JsonDict jsonDict, string className = "ModBurnableBehaviour")
 	{
-		base.InitializeBehaviour(dict, className);
-		this.BurningMinutes = dict.GetVariant(className, "BurningMinutes");
-		this.BurningMinutesBeforeAllowedToAdd = dict.GetVariant(className, "BurningMinutesBeforeAllowedToAdd");
-		this.TempIncrease = dict.GetVariant(className, "TempIncrease");
+		base.InitializeBehaviour(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.BurningMinutes = entry.GetInt("BurningMinutes");
+		this.BurningMinutesBeforeAllowedToAdd = entry.GetFloat("BurningMinutesBeforeAllowedToAdd");
+		this.TempIncrease = entry.GetFloat("TempIncrease");
 	}
 }

@@ -111,7 +111,7 @@ internal static class GearSpawnManager
 
 	private static bool ShouldSpawn(DifficultyLevel difficultyLevel, FirearmAvailability firearmAvailability, GearSpawnInfo gearSpawnInfo)
 	{
-		return Settings.Instance.alwaysSpawnItems
+		return Settings.instance.alwaysSpawnItems
 			|| SpawnTagManager.GetHandler(gearSpawnInfo.Tag).ShouldSpawn(difficultyLevel, firearmAvailability, gearSpawnInfo);
 	}
 

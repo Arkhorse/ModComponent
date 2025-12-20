@@ -35,12 +35,14 @@ public class ModHarvestableBehaviour : MonoBehaviour
 	public ModHarvestableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModHarvestableBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModHarvestableBehaviour")
 	{
-		this.Audio = dict.GetVariant(className, "Audio");
-		this.Minutes = dict.GetVariant(className, "Minutes");
-		this.YieldCounts = dict.GetIntArray(className, "YieldCounts");
-		this.YieldNames = dict.GetStringArray(className, "YieldNames");
-		this.RequiredToolNames = dict.GetStringArray(className, "RequiredToolNames");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.Audio = entry.GetString("Audio");
+		this.Minutes = entry.GetInt("Minutes");
+		this.YieldCounts = entry.GetArray<int>("YieldCounts");
+		this.YieldNames = entry.GetArray<string>("YieldNames");
+		this.RequiredToolNames = entry.GetArray<string>("RequiredToolNames");
 	}
 }

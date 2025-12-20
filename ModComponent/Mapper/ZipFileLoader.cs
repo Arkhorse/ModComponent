@@ -2,9 +2,11 @@
 using MelonLoader.TinyJSON;
 using MelonLoader.Utils;
 using ModComponent.Utils;
+using System.IO.Compression;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using static ModComponent.Utils.DependencyChecker;
 
 namespace ModComponent.Mapper;
 
@@ -84,40 +86,76 @@ internal static class ZipFileLoader
 
 	private static void LoadZipFile(string MCFilePath, FileStream fileStream)
 	{
-		using (ZipInputStream zipInputStream = new ZipInputStream(fileStream))
+
+		using (ZipArchive zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Read))
 		{
-			ZipEntry entry;
-			while ((entry = zipInputStream.GetNextEntry()) != null)
+			foreach (ZipArchiveEntry entry in zipArchive.Entries)
 			{
-				string internalPath = entry.Name;
-				string filename = Path.GetFileName(internalPath);
-				FileType fileType = GetFileType(filename);
-				if (fileType == FileType.other)
+				if(string.IsNullOrEmpty(entry.Name))
 				{
 					continue;
 				}
+//				Logger.Log($"Entry {entry.Name} {entry.FullName} {Path.Combine(entry.FullName,entry.Name)}");
 
-				using MemoryStream unzippedFileStream = new MemoryStream();
-				int size = 0;
-				byte[] buffer = new byte[4096];
-				while (true)
+				string internalPath = entry.FullName;
+//				string filename = Path.GetFileName(internalPath);
+				string filename = entry.Name;
+				FileType fileType = GetFileType(filename);
+				if (fileType == FileType.other)
 				{
-					size = zipInputStream.Read(buffer, 0, buffer.Length);
-					if (size > 0)
+					Logger.Log($"skipping {internalPath} {fileType.ToString()}");
+					continue;
+				}
+
+				using (Stream stream = entry.Open())
+				{
+					using (var unzippedFileStream = new MemoryStream())
 					{
-						unzippedFileStream.Write(buffer, 0, size);
-					}
-					else
-					{
-						break;
+						stream.CopyTo(unzippedFileStream);
+						if (!TryHandleFile(MCFilePath, internalPath, fileType, unzippedFileStream))
+						{
+							return;
+						}
 					}
 				}
-				if (!TryHandleFile(MCFilePath, internalPath, fileType, unzippedFileStream))
-				{
-					return;
-				}
+
 			}
 		}
+
+		//using (ZipInputStream zipInputStream = new ZipInputStream(fileStream))
+		//{
+		//	ZipEntry entry;
+		//	while ((entry = zipInputStream.GetNextEntry()) != null)
+		//	{
+		//		string internalPath = entry.Name;
+		//		string filename = Path.GetFileName(internalPath);
+		//		FileType fileType = GetFileType(filename);
+		//		if (fileType == FileType.other)
+		//		{
+		//			continue;
+		//		}
+
+		//		using MemoryStream unzippedFileStream = new MemoryStream();
+		//		int size = 0;
+		//		byte[] buffer = new byte[4096];
+		//		while (true)
+		//		{
+		//			size = zipInputStream.Read(buffer, 0, buffer.Length);
+		//			if (size > 0)
+		//			{
+		//				unzippedFileStream.Write(buffer, 0, size);
+		//			}
+		//			else
+		//			{
+		//				break;
+		//			}
+		//		}
+		//		if (!TryHandleFile(MCFilePath, internalPath, fileType, unzippedFileStream))
+		//		{
+		//			return;
+		//		}
+		//	}
+		//}
 	}
 
 	private static string ReadToString(MemoryStream memoryStream)
@@ -279,18 +317,10 @@ internal static class ZipFileLoader
 
 	private static void LogItemPackInformation(string jsonText)
 	{
-		ProxyObject? dict = (ProxyObject)JSON.Load(jsonText);
-		string modName = dict["Name"];
-		string version = dict["Version"];
-		Variant author;
-		if (dict.TryGetValue("Author", out author))
-		{
-			Logger.LogGreen($"Found: {modName} {version} by {author}");
-		}
-		else
-		{
-			Logger.LogGreen($"Found: {modName} {version}");
-		}
+		//		ProxyObject? dict = (ProxyObject)JSON.Load(jsonText);
+		BuildFileEntry buildFile = JsonConvert.DeserializeObject<BuildFileEntry>(jsonText);
+		Logger.LogGreen($"Found: {buildFile.Name} {buildFile.Version} by {buildFile.Author}");
+
 	}
 
 	private static bool TryHandleTxt(string zipFilePath, string internalPath, string text)

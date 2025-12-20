@@ -44,15 +44,17 @@ public class ModFireStarterBehaviour : ModFireMakingBaseBehaviour
 	public ModFireStarterBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeBehaviour(ProxyObject dict, string className = "ModFireStarterBehaviour")
+	internal override void InitializeBehaviour(JsonDict jsonDict, string className = "ModFireStarterBehaviour")
 	{
-		base.InitializeBehaviour(dict, className);
-		this.DestroyedOnUse = dict.GetVariant(className, "DestroyedOnUse");
-		this.NumberOfUses = dict.GetVariant(className, "NumberOfUses");
-		this.OnUseSoundEvent = dict.GetVariant(className, "OnUseSoundEvent");
-		this.RequiresSunLight = dict.GetVariant(className, "RequiresSunLight");
-		this.RuinedAfterUse = dict.GetVariant(className, "RuinedAfterUse");
-		this.SecondsToIgniteTinder = dict.GetVariant(className, "SecondsToIgniteTinder");
-		this.SecondsToIgniteTorch = dict.GetVariant(className, "SecondsToIgniteTorch");
+		base.InitializeBehaviour(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.DestroyedOnUse = entry.GetBool("DestroyedOnUse");
+		this.NumberOfUses = entry.GetFloat("NumberOfUses");
+		this.OnUseSoundEvent = entry.GetString("OnUseSoundEvent");
+		this.RequiresSunLight = entry.GetBool("RequiresSunLight");
+		this.RuinedAfterUse = entry.GetBool("RuinedAfterUse");
+		this.SecondsToIgniteTinder = entry.GetFloat("SecondsToIgniteTinder");
+		this.SecondsToIgniteTorch = entry.GetFloat("SecondsToIgniteTorch");
 	}
 }

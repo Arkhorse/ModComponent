@@ -53,15 +53,17 @@ public partial class ModFirstAidComponent : ModBaseComponent
 	public ModFirstAidComponent(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModFirstAidComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModFirstAidComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.ProgressBarMessage = dict.GetVariant(className, "ProgressBarMessage");
-		this.RemedyText = dict.GetVariant(className, "RemedyText");
-		this.InstantHealing = dict.GetVariant(className, "InstantHealing");
-		this.FirstAidType = dict.GetEnum<FirstAidKind>(className, "FirstAidType");
-		this.TimeToUseSeconds = dict.GetVariant(className, "TimeToUseSeconds");
-		this.UnitsPerUse = dict.GetVariant(className, "UnitsPerUse");
-		this.UseAudio = dict.GetVariant(className, "UseAudio");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.ProgressBarMessage = entry.GetString("ProgressBarMessage");
+		this.RemedyText = entry.GetString("RemedyText");
+		this.InstantHealing = entry.GetInt("InstantHealing");
+		this.FirstAidType = entry.GetEnum<FirstAidKind>("FirstAidType");
+		this.TimeToUseSeconds = entry.GetInt("TimeToUseSeconds");
+		this.UnitsPerUse = entry.GetInt("UnitsPerUse");
+		this.UseAudio = entry.GetString("UseAudio");
 	}
 }

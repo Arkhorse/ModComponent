@@ -70,7 +70,7 @@ internal static class LootTableManager
 
 					lootTableData.m_BaseEntries.Add(newEntry);
 					lootTableData.m_FilteredExtendedItems.Add(newEntry.m_Item);
-					lootTableData.m_ExistingOperations.Add(new IKeyEvaluator(newEntry.m_Item.Pointer), newEntry.m_Item.LoadAsset());
+					lootTableData.m_ExistingOperations.Add(new IKeyEvaluator(newEntry.m_Item.Pointer), newEntry.m_Item.LoadAssetAsync());
 
 					//Debug.Log(entry.PrefabName + " => " + entry.Weight);
 

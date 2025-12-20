@@ -55,9 +55,11 @@ public class ModRandomItemComponent : ModBaseComponent
 	}
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModRandomItemComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModRandomItemComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.ItemNames = dict.GetStringArray(className, "ItemNames");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.ItemNames = entry.GetArray<string>("ItemNames");
 	}
 }

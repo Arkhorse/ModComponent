@@ -1,12 +1,9 @@
-﻿using CraftingRevisions.Patches;
-using Harmony;
-using HarmonyLib;
-using Il2Cpp;
+﻿using Il2Cpp;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppTLD.Cooking;
 using Il2CppTLD.Gear;
+using Newtonsoft.Json;
 using System.Text;
-using System.Text.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -126,7 +123,7 @@ namespace CraftingRevisions
 		#region Json
 		public static ModUserRecipe ParseFromJson(string jsonText)
 		{
-			ModUserRecipe recipe = JsonSerializer.Deserialize<ModUserRecipe>(jsonText) ?? throw new ArgumentException("Could not parse recipe data from the text.", nameof(jsonText));
+			ModUserRecipe recipe = JsonConvert.DeserializeObject<ModUserRecipe>(jsonText) ?? throw new ArgumentException("Could not parse recipe data from the text.", nameof(jsonText));
 			recipe.RecipeShortName = recipe.RecipeName;
 			return recipe;
 		}

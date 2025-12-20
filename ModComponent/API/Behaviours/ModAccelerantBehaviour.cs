@@ -14,9 +14,11 @@ public class ModAccelerantBehaviour : ModFireMakingBaseBehaviour
 	public ModAccelerantBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeBehaviour(ProxyObject dict, string className = "ModAccelerantBehaviour")
+	internal override void InitializeBehaviour(JsonDict jsonDict, string className = "ModAccelerantBehaviour")
 	{
-		base.InitializeBehaviour(dict, className);
-		this.DestroyedOnUse = dict.GetBool(className, "DestroyedOnUse", false);
+		base.InitializeBehaviour(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.DestroyedOnUse = entry.GetBool("DestroyedOnUse", false);
 	}
 }

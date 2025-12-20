@@ -44,11 +44,13 @@ public partial class ModPowderComponent : ModBaseComponent
 	public ModPowderComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModPowderComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModPowderComponent")
 	{
-		base.InitializeComponent(dict, className);
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
 		this.ModPowderType = ScriptableObject.CreateInstance<PowderType>();
-		this.CapacityKG = dict.GetVariant(className, "CapacityKG");
-		this.ChanceFull = dict.GetVariant(className, "ChanceFull");
+		this.CapacityKG = entry.GetFloat("CapacityKG");
+		this.ChanceFull = entry.GetFloat("ChanceFull");
 	}
 }

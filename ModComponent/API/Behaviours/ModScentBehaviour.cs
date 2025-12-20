@@ -16,8 +16,10 @@ public partial class ModScentBehaviour : MonoBehaviour
 	public ModScentBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModScentBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModScentBehaviour")
 	{
-		this.scentCategory = dict.GetEnum<ScentRangeCategory>(className, "ScentCategory");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.scentCategory = entry.GetEnum<ScentRangeCategory>("ScentCategory");
 	}
 }

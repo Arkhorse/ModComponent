@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
+using HarmonyLib.Tools;
 using Il2Cpp;
+using MelonLoader;
 using System.Text.RegularExpressions;
 using StringTableEntry = Il2Cpp.StringTableData.Entry;
 
@@ -24,10 +26,13 @@ internal static class LocalizationPatch
 		string[] languages = stringTable.GetLanguagesArray();
 		foreach (LocalizationEntry entry in set.Entries)
 		{
+
+
 			StringTableEntry stringEntry = stringTable.GetOrAddEntryFromKey(entry.LocalizationID);
 			for (int i = 0; i < languages.Length; i++)
 			{
 				string language = languages[i];
+				
 
                 string pattern = @"\[(.*?)\]";
                 Match match = Regex.Match(language, pattern);

@@ -1,9 +1,11 @@
-﻿using HarmonyLib;
-using Il2Cpp;
-using Il2CppTLD.OptionalContent;
-using MelonLoader;
-using ModComponent.API.Components;
-using ModComponent.Utils;
+﻿global using Newtonsoft.Json;
+global using ModComponent.Utils;
+global using UnityEngine;
+global using HarmonyLib;
+global using Il2Cpp;
+global using MelonLoader;
+global using ModComponent.API.Components;
+
 
 namespace ModComponent;
 
@@ -27,6 +29,8 @@ internal class Implementation : MelonMod
 		Logger.LogDebug("Debug Compilation");
 		Logger.LogNotDebug("Release Compilation");
 
+		GearSpawner.Settings.instance.AddToModSettings("Gear Spawn Settings");
+		CraftingRevisions.Settings.instance.AddToModSettings("Crafting Revisions");
 		Settings.instance.AddToModSettings("ModComponent");
 
 		AssetBundleProcessor.Initialize();

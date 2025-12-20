@@ -41,13 +41,15 @@ public class ModSharpenableBehaviour : MonoBehaviour
 	public ModSharpenableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal void InitializeBehaviour(ProxyObject dict, string className = "ModSharpenableBehaviour")
+	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModSharpenableBehaviour")
 	{
-		this.Audio = dict.GetVariant(className, "Audio");
-		this.MinutesMin = dict.GetVariant(className, "MinutesMin");
-		this.MinutesMax = dict.GetVariant(className, "MinutesMax");
-		this.ConditionMin = dict.GetVariant(className, "ConditionMin");
-		this.ConditionMax = dict.GetVariant(className, "ConditionMax");
-		this.Tools = dict.GetStringArray(className, "Tools");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.Audio = entry.GetString("Audio");
+		this.MinutesMin = entry.GetInt("MinutesMin");
+		this.MinutesMax = entry.GetInt("MinutesMax");
+		this.ConditionMin = entry.GetFloat("ConditionMin");
+		this.ConditionMax = entry.GetFloat("ConditionMax");
+		this.Tools = entry.GetArray<string>("Tools");
 	}
 }

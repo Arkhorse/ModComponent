@@ -1,6 +1,7 @@
 ﻿using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 
+
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp(false)]
@@ -13,12 +14,14 @@ public class ModCharcoalComponent : ModBaseComponent
 	public ModCharcoalComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
-	internal override void InitializeComponent(ProxyObject dict, string className = "ModCharcoalComponent")
+	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModCharcoalComponent")
 	{
-		base.InitializeComponent(dict, className);
-		this.SurveyGameMinutes = dict.GetVariant(className, "SurveyGameMinutes");
-		this.SurveyRealSeconds = dict.GetVariant(className, "SurveyRealSeconds");
-		this.SurveySkillExtendedHours = dict.GetVariant(className, "SurveySkillExtendedHours");
-		this.SurveyLoopAudio = dict.GetVariant(className, "SurveyLoopAudio");
+		base.InitializeComponent(jsonDict, className);
+		JsonDictEntry entry = jsonDict.GetEntry(className);
+
+		this.SurveyGameMinutes = entry.GetFloat("SurveyGameMinutes");
+		this.SurveyRealSeconds = entry.GetFloat("SurveyRealSeconds");
+		this.SurveySkillExtendedHours = entry.GetFloat("SurveySkillExtendedHours");
+		this.SurveyLoopAudio = entry.GetString("SurveyLoopAudio");
 	}
 }
