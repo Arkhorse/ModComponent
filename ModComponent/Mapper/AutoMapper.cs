@@ -1,6 +1,7 @@
 ﻿using ModComponent.API.Components;
 using ModComponent.AssetLoader;
 using ModComponent.Utils;
+using System.Linq;
 using UnityEngine;
 
 namespace ModComponent.Mapper;
@@ -16,8 +17,17 @@ internal static class AutoMapper
 	/// </summary>
 	private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new();
 
+	private static List<string> mappedPrefabs = new List<string>();
+
 	internal static void AutoMapPrefab(string bundlePath, string prefabName)
 	{
+
+		if(mappedPrefabs.Contains(prefabName))
+		{
+			return;
+		}
+		mappedPrefabs.Add(prefabName);
+
 		string bundleName = Path.GetFileNameWithoutExtension(bundlePath);
 
 		UnityEngine.Object? loadedObject = AssetBundleUtils.LoadAsset<GameObject>(prefabName);

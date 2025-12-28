@@ -11,7 +11,7 @@ internal static class Panel_IceFishingHoleClear_Launch
 	internal static void Prefix(Panel_IceFishingHoleClear __instance)
 	{
 		if (callOnce) {
-			__instance.AddAlternateTools();
+			__instance.InitializeFilteredUsableTools();
 			callOnce = false;
 		}
 	}
@@ -25,7 +25,7 @@ internal static class Panel_IceFishingHoleClear_CanBuildFishingHole
 	{
 		if (callOnce)
 		{
-			__instance.AddAlternateTools();
+			__instance.InitializeFilteredUsableTools();
 			callOnce = false;
 		}
 	}

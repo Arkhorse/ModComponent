@@ -1,4 +1,5 @@
 ﻿using Il2Cpp;
+using Il2CppInteractiveObjects;
 using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
@@ -67,15 +68,15 @@ public class ModStackableBehaviour : MonoBehaviour
 	[HideFromIl2Cpp]
 	internal void InitializeBehaviour(JsonDict jsonDict, string className = "ModStackableBehaviour")
 	{
-		JsonDictEntry entry = jsonDict.GetEntry("className");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
 
 		this.MultipleUnitTextID = entry.GetString("MultipleUnitTextId");
 		this.StackSprite = entry.GetString("StackSprite");
 		this.SingleUnitTextID = entry.GetString("SingleUnitTextId");
-		this.UnitsPerItem = entry.GetInt("UnitsPerItem");
-		this.ChanceFull = entry.GetFloat("ChanceFull");
+		this.UnitsPerItem = entry.GetInt("UnitsPerItem", this.UnitsPerItem);
+		this.ChanceFull = entry.GetFloat("ChanceFull", this.ChanceFull);
 		this.ShareStackWithGear = entry.GetArray<string>("ShareStackWithGear");
 		this.InstantiateStackItem = entry.GetString("InstantiateStackItem");
-		this.StackConditionDifferenceConstraint = entry.GetFloat("StackConditionDifferenceConstraint", 0.01f);
+		this.StackConditionDifferenceConstraint = entry.GetFloat("StackConditionDifferenceConstraint", this.StackConditionDifferenceConstraint);
 	}
 }

@@ -111,7 +111,7 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModBodyHarvestComponent")
 	{
 		base.InitializeComponent(jsonDict, className);
-		JsonDictEntry entry = jsonDict.GetEntry("className");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
 
 		this.CanCarry = entry.GetBool("CanCarry");
 		this.HarvestAudio = entry.GetString("HarvestAudio");

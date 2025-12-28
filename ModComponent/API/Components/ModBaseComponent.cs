@@ -134,31 +134,29 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	[HideFromIl2Cpp]
 	internal virtual void InitializeComponent(JsonDict jsonDict, string inheritanceName)
 	{
-		JsonDictEntry? jsonDictEntry = jsonDict.GetEntry(inheritanceName);
-		if (jsonDictEntry != null)
-		{
-			this.ConsoleName = NameUtils.RemoveGearPrefix(this.gameObject.name);
-			this.DisplayNameLocalizationId = jsonDictEntry.GetString("DisplayNameLocalizationId");
-			this.DescriptionLocalizatonId = jsonDictEntry.GetString("DescriptionLocalizatonId");
-			this.InventoryActionLocalizationId = jsonDictEntry.GetString("InventoryActionLocalizationId");
-			this.WeightKG = jsonDictEntry.GetFloat("WeightKG");
-			this.DaysToDecay = jsonDictEntry.GetFloat("DaysToDecay");
-			this.MaxHP = jsonDictEntry.GetFloat("MaxHP");
-			this.InitialCondition = jsonDictEntry.GetEnum<GearStartCondition>("InitialCondition");
-			this.InventoryCategory = jsonDictEntry.GetEnum<ItemCategory>("InventoryCategory");
-			this.PickUpAudio = jsonDictEntry.GetString("PickUpAudio");
-			this.PutBackAudio = jsonDictEntry.GetString("PutBackAudio");
-			this.StowAudio = jsonDictEntry.GetString("StowAudio");
-			this.WornOutAudio = jsonDictEntry.GetString("WornOutAudio");
-			this.InspectOnPickup = jsonDictEntry.GetBool("InspectOnPickup");
-			this.InspectDistance = jsonDictEntry.GetFloat("InspectDistance");
-			this.InspectAngles = jsonDictEntry.GetVector3("InspectAngles");
-			this.InspectOffset = jsonDictEntry.GetVector3("InspectOffset");
-			this.InspectScale = jsonDictEntry.GetVector3("InspectScale");
-			this.NormalModel = ModUtils.GetChild(this.gameObject, jsonDictEntry.GetString("NormalModel"));
-			this.InspectModel = ModUtils.GetChild(this.gameObject, jsonDictEntry.GetString("InspectModel"));
-			this.Validate();
-		}
+		JsonDictEntry? entry = jsonDict.GetEntry(inheritanceName);
+
+		this.ConsoleName = NameUtils.RemoveGearPrefix(this.gameObject.name);
+		this.DisplayNameLocalizationId = entry.GetString("DisplayNameLocalizationId");
+		this.DescriptionLocalizatonId = entry.GetString("DescriptionLocalizatonId");
+		this.InventoryActionLocalizationId = entry.GetString("InventoryActionLocalizationId");
+		this.WeightKG = entry.GetFloat("WeightKG");
+		this.DaysToDecay = entry.GetFloat("DaysToDecay");
+		this.MaxHP = entry.GetFloat("MaxHP");
+		this.InitialCondition = entry.GetEnum<GearStartCondition>("InitialCondition");
+		this.InventoryCategory = entry.GetEnum<ItemCategory>("InventoryCategory");
+		this.PickUpAudio = entry.GetString("PickUpAudio");
+		this.PutBackAudio = entry.GetString("PutBackAudio");
+		this.StowAudio = entry.GetString("StowAudio");
+		this.WornOutAudio = entry.GetString("WornOutAudio");
+		this.InspectOnPickup = entry.GetBool("InspectOnPickup");
+		this.InspectDistance = entry.GetFloat("InspectDistance", this.InspectDistance);
+		this.InspectAngles = entry.GetVector3("InspectAngles");
+		this.InspectOffset = entry.GetVector3("InspectOffset");
+		this.InspectScale = entry.GetVector3("InspectScale");
+		this.NormalModel = ModUtils.GetChild(this.gameObject, entry.GetString("NormalModel"));
+		this.InspectModel = ModUtils.GetChild(this.gameObject, entry.GetString("InspectModel"));
+		this.Validate();
 
 	}
 

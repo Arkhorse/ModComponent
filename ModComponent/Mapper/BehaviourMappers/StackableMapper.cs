@@ -28,14 +28,12 @@ internal static class StackableMapper
 		stackableItem.m_Units = modStackableComponent.UnitsPerItem;
 		stackableItem.m_DefaultUnitsInItem = modStackableComponent.UnitsPerItem;
 
+
+		stackableItem.m_ShareStackWithGear = new(0);
 		if (modStackableComponent.ShareStackWithGear.Length > 0)
 		{
 			stackableItem.m_ShareStackWithGear = ModUtils.GetItems<StackableItem>(modStackableComponent.ShareStackWithGear, modStackableComponent.name);
 		}
-        else
-        {
-            stackableItem.m_ShareStackWithGear = new(0);
-        }
 
 		if (!string.IsNullOrEmpty(modStackableComponent.InstantiateStackItem)) {
 			stackableItem.m_InstantiateStackItem = AssetBundleUtils.LoadAsset<GameObject>(modStackableComponent.InstantiateStackItem).GetComponent<GearItem>();

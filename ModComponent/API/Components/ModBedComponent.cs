@@ -80,7 +80,7 @@ public class ModBedComponent : ModBaseComponent
 	internal override void InitializeComponent(JsonDict jsonDict, string className = "ModBedComponent")
 	{
 		base.InitializeComponent(jsonDict, className);
-		JsonDictEntry entry = jsonDict.GetEntry("className");
+		JsonDictEntry entry = jsonDict.GetEntry(className);
 
 		this.ConditionGainPerHour = entry.GetFloat("ConditionGainPerHour");
 		this.AdditionalConditionGainPerHour = entry.GetFloat("AdditionalConditionGainPerHour");
