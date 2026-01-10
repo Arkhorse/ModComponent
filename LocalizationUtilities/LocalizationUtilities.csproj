@@ -35,7 +35,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/dommrogers/LocalizationUtilities</PackageProjectUrl>
 		<Description>Library for The Long Dark that loads localization data.</Description>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>bin\LocalizationUtilities.xml</DocumentationFile>

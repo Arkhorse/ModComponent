@@ -24,6 +24,7 @@ A huge THANK YOU to [ds5678](https://github.com/ds5678) who gave me the opportun
 
 * If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
 * Install the latest version of [ModComponent](https://github.com/dommrogers/ModComponent/releases/latest) by placing it in the mods folder.
+* As of ModComponent 7.0.0 - GearSpawner,LocalizationUtilities,CraftingRevisions are bundled in (only ModSettings required)
 * Install the dependencies:
   - [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/latest)
   - [GearSpawner](https://github.com/dommrogers/GearSpawner/releases/latest)

@@ -34,7 +34,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/dommrogers/GearSpawner</PackageProjectUrl>
 		<Description>Library for The Long Dark that allows spawning modded items in the world.</Description>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>bin\GearSpawner.xml</DocumentationFile>

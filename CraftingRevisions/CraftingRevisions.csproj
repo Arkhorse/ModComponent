@@ -36,7 +36,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/dommrogers/CraftingRevisions</PackageProjectUrl>
 		<Description>Library for The Long Dark that improves the crafting system.</Description>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>bin\CraftingRefivions.xml</DocumentationFile>
